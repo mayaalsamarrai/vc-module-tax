@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VirtoCommerce.TaxModule.Core.Model;
 using VirtoCommerce.TaxModule.Core.Model.Search;
@@ -9,6 +10,7 @@ using VirtoCommerce.TaxModule.Core.Services;
 namespace VirtoCommerce.TaxModule.Web.Controllers.Api
 {
     [Route("api/taxes")]
+    [Authorize]
     public class TaxModuleController : Controller
     {
         private readonly ITaxProviderSearchService _taxProviderSearchService;
@@ -64,6 +66,13 @@ namespace VirtoCommerce.TaxModule.Web.Controllers.Api
             }
 
             return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("some")]
+        public ActionResult<string> GetSome(string id)
+        {
+            return Ok("test");
         }
     }
 }
