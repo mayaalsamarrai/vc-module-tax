@@ -1,0 +1,39 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Automerge to feature/migrate-to-vc30
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ feature/automerge-2-migrate2vc3 ]
+  pull_request:
+    branches: none
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: Sync Merge
+      uses: robotology/gh-action-nightly-merge@v1.2.0
+      with:
+        # Name of the stable branch
+        stable_branch: feature/automerge-2-migrate2vc3
+        # Name of the development branch
+        development_branch: feature/dev-migrate2vc3
+        # Allow fast forward merge
+        allow_ff: false # optional
+        # Refuse to perform a non fast forward merge (requires allow_ff=true)
+        ff_only: false 
+        # Allow action to run on forks
+        allow_forks: false # optional
+        # User name for git commits
+        user_name: Merge to feature/migrate-to-vc30 
